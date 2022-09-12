@@ -52,10 +52,10 @@
             newX = snakeX[snakeX.length]
             newY = snakeY[snakeY.length]
 
-            if (direction == 0) { newY--; }
-            else if (direction == 1) { newX++; }
-            else if (direction == 2) { newY++; }
-            else if (direction == 3) { newX--; }
+            if (direction == 0) { newX++; }
+            else if (direction == 1) { newY--; }
+            else if (direction == 2) { newX--; }
+            else if (direction == 3) { newY++; }
 
             // finish by updating lists
             snakeX = snakeX.slice(1, snakeX.length)
