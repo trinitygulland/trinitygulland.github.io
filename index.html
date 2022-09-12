@@ -16,14 +16,15 @@
     </style>
   </head>
   <body>
-    <canvas id="myCanvas" width="480" height="320"></canvas>
+    <canvas id="myCanvas" width="500" height="400"></canvas>
 
     <script>
         var canvas = document.getElementById("myCanvas");
         var ctx = canvas.getContext("2d");
+        delta = 10
 
         ctx.beginPath();
-        ctx.rect(0, 0, 10, 10);
+        ctx.rect(0, 0, 50, 50);
         ctx.fillStyle = "#FF0000";
         ctx.fill();
         ctx.closePath();
