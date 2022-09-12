@@ -23,8 +23,8 @@
         var ctx = canvas.getContext("2d");
 
         delta = 50;
-        snakeX = [0,1];
-        snakeY = [0,0];
+        snakeX = [0,0];
+        snakeY = [0,1];
 
         // 0 is up, 1 is right, 2 is down, 3 is right
         direction = 1
@@ -49,8 +49,6 @@
         }
 
         function updateSnake() {
-            draw()
-
             newX = snakeX[snakeX.length];
             newY = snakeY[snakeY.length];
 
@@ -60,15 +58,17 @@
             else if (direction == 3) { newY++; }
 
             // finish by updating lists
-            snakeX = snakeX.slice(1, snakeX.length);
-            snakeX.push(newX);
+            snakeX.splice(0,1)
+            snakeX.splice(snakeX.length, 0 , newX);
 
-            snakeY = snakeY.slice(1, snakeY.length);
-            snakeY.push(newY);
+            snakeY.splice(0,1)
+            snakeY.splice(snakeY.length, 0 , newY);
 
+            draw();
         }
 
-        setInterval(updateSnake,750);
+        draw();
+        setInterval(updateSnake,500);
 
     </script>
   </body>
