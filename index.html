@@ -21,13 +21,30 @@
     <script>
         var canvas = document.getElementById("myCanvas");
         var ctx = canvas.getContext("2d");
-        delta = 10
 
-        ctx.beginPath();
-        ctx.rect(0, 0, 50, 50);
-        ctx.fillStyle = "#FF0000";
-        ctx.fill();
-        ctx.closePath();
+        delta = 50
+        snakeX = [0]
+        snakeY = [0]
+
+        // 0 is up, 1 is right, 2 is down, 3 is right
+        direction = 1
+
+        function drawSquare(x,y) {
+            ctx.beginPath();
+            ctx.rect(x, y, delta, delta);
+            ctx.fillStyle = "#FF0000";
+            ctx.fill();
+            ctx.closePath();
+        }
+
+        function drawSnake() {
+            for(let i = 0; i < snakeX.length; i++) {
+                drawSquare(snakeX[i], snakeY[i])
+            }
+        }
+
+        drawSnake
+
 
     </script>
   </body>
