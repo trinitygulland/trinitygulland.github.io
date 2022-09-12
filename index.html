@@ -31,7 +31,7 @@
 
         function drawSquare(x,y) {
             ctx.beginPath();
-            ctx.rect(x, y, delta, delta);
+            ctx.rect(x*delta, y*delta, delta, delta);
             ctx.fillStyle = "#FF0000";
             ctx.fill();
             ctx.closePath();
@@ -43,9 +43,19 @@
             }
         }
 
+        function updateSnake() {
+            newX = snakeX[snakeX.length]
+            newY = snakeY[snakeY.length]
+
+            if (direction == 0) { newY--; }
+            else if (direction == 1) { newX++; }
+            else if (direction == 2) { newY++; }
+            else if (direction == 3) { newX--; }
+
+            //finish by updating lists
+        }
+
         drawSnake()
-
-
 
 
     </script>
