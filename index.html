@@ -59,10 +59,10 @@
 
             // finish by updating lists
             snakeX.splice(0,1)
-            snakeX.splice(snakeX.length, 0 , newX % 25);
+            snakeX.splice(snakeX.length, 0 , newX % 10);
 
             snakeY.splice(0,1)
-            snakeY.splice(snakeY.length, 0 , newY % 20);
+            snakeY.splice(snakeY.length, 0 , newY % 8);
 
             draw();
         }
