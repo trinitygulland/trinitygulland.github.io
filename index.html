@@ -29,6 +29,11 @@
         // 0 is up, 1 is right, 2 is down, 3 is right
         direction = 1
 
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawSnake()
+        }
+
         function drawSquare(x,y) {
             ctx.beginPath();
             ctx.rect(x*delta, y*delta, delta, delta);
@@ -52,11 +57,17 @@
             else if (direction == 2) { newY++; }
             else if (direction == 3) { newX--; }
 
-            //finish by updating lists
+            // finish by updating lists
+            snakeX = snakeX.slice(1, snakeX.length)
+            snakeX.push(newX)
+
+            snakeY = snakeY.slice(1, snakeY.length)
+            snakeY.push(newY)
+
+            draw()
         }
 
-        drawSnake()
-
+        setInterval(updateSnake,10)
 
     </script>
   </body>
