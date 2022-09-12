@@ -49,8 +49,8 @@
         }
 
         function updateSnake() {
-            newX = snakeX[snakeX.length];
-            newY = snakeY[snakeY.length];
+            newX = snakeX.at(-1);
+            newY = snakeY.at(-1);
 
             if (direction == 0) { newY--; }
             else if (direction == 1) { newX++; }
