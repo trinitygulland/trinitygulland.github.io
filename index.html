@@ -22,16 +22,16 @@
         var canvas = document.getElementById("myCanvas");
         var ctx = canvas.getContext("2d");
 
-        delta = 50
-        snakeX = [0,1]
-        snakeY = [0,0]
+        delta = 50;
+        snakeX = [0,1];
+        snakeY = [0,0];
 
         // 0 is up, 1 is right, 2 is down, 3 is right
         direction = 1
 
         function draw() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            drawSnake()
+            drawSnake();
         }
 
         function drawSquare(x,y) {
@@ -44,13 +44,15 @@
 
         function drawSnake() {
             for(let i = 0; i < snakeX.length; i++) {
-                drawSquare(snakeX[i], snakeY[i])
+                drawSquare(snakeX[i], snakeY[i]);
             }
         }
 
         function updateSnake() {
-            newX = snakeX[snakeX.length]
-            newY = snakeY[snakeY.length]
+            draw()
+
+            newX = snakeX[snakeX.length];
+            newY = snakeY[snakeY.length];
 
             if (direction == 0) { newX++; }
             else if (direction == 1) { newY--; }
@@ -58,16 +60,15 @@
             else if (direction == 3) { newY++; }
 
             // finish by updating lists
-            snakeX = snakeX.slice(1, snakeX.length)
-            snakeX.push(newX)
+            snakeX = snakeX.slice(1, snakeX.length);
+            snakeX.push(newX);
 
-            snakeY = snakeY.slice(1, snakeY.length)
-            snakeY.push(newY)
+            snakeY = snakeY.slice(1, snakeY.length);
+            snakeY.push(newY);
 
-            draw()
         }
 
-        setInterval(updateSnake,100)
+        setInterval(updateSnake,750);
 
     </script>
   </body>
