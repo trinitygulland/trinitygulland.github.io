@@ -82,15 +82,23 @@
             possibleY = []
 
             for(i = 0; i < 10; i++) {
-                if (!snakeX.includes(i)) { possibleX.push(i); }
+                for(j = 0; j < 8; j++) {
+                    isInSnake = false;
+                    for(k = 0; k < snakeX.length; k++) {
+                        if (snakeX.at(k) == i && snakeY.at(k) == j) {
+                            isInSnake = true;
+                        }
+                    }
+                    if(!isInSnake)  {
+                        possibleX.push(i);
+                        possibleY.push(j);
+                    }
+                }
             }
 
-            for(i = 0; i < 8; i++) {
-                if (!snakeY.includes(i)) { possibleY.push(i); }
-            }
-
-            appleX = possibleX.at(Math.floor(Math.random()*possibleX.length))
-            appleY = possibleY.at(Math.floor(Math.random()*possibleY.length))
+            choice = Math.floor(Math.random()*possibleX.length);
+            appleX = possibleX.at(choice);
+            appleY = possibleY.at(choice);
         }
 
         function update() {
