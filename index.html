@@ -32,9 +32,11 @@
         delta = 50;
         snakeX = [0,0,0];
         snakeY = [0,1,2];
+        appleX = 0;
+        appleY = 0;
 
         // 0 is up, 1 is right, 2 is down, 3 is right
-        direction = 2
+        direction = 2;
 
         function keyDownHandler(event) {
             if (event.keyCode === 39) {
@@ -54,23 +56,44 @@
         function draw() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             drawSnake();
+            drawApple();
         }
 
-        function drawSquare(x,y) {
+        function drawSquare(x,y,colour) {
             ctx.beginPath();
             ctx.rect(x*delta, y*delta, delta, delta);
-            ctx.fillStyle = "#FF0000";
+            ctx.fillStyle = colour;
             ctx.fill();
             ctx.closePath();
         }
 
+        function drawApple() {
+            drawSquare(appleX, appleY, "#c43b23");
+        }
+
         function drawSnake() {
             for(let i = 0; i < snakeX.length; i++) {
-                drawSquare(snakeX[i], snakeY[i]);
+                drawSquare(snakeX[i], snakeY[i], "#54c423");
             }
         }
 
-        function updateSnake() {
+        function generateAppleLoc() {
+            possibleX = []
+            possibleY = []
+
+            for(i = 0; i < 10; i++) {
+                if (!snakeX.includes(i)) { possibleX.push(i); }
+            }
+
+            for(i = 0; i < 8; i++) {
+                if (!snakeY.includes(i)) { possibleY.push(i); }
+            }
+
+            appleX = possibleX.at(Math.floor(Math.random()*possibleX.length))
+            appleY = possibleY.at(Math.floor(Math.random()*possibleY.length))
+        }
+
+        function update() {
             newX = snakeX.at(-1);
             newY = snakeY.at(-1);
 
@@ -102,18 +125,39 @@
                 if (newX == -1) { newX = 9;}
             }
 
-            // finish by updating lists
-            snakeX.splice(0,1)
-            snakeX.splice(snakeX.length, 0 , newX % 10);
+            hitSelf = false;
+            for(i = 0; i < snakeX.length; i++) {
+                if (snakeX.at(i) == newX && snakeY.at(i) == newY) { 
+                    hitSelf = true;
+                    break;
+                }
+            }
 
-            snakeY.splice(0,1)
-            snakeY.splice(snakeY.length, 0 , newY % 8);
+            // finish by updating lists
+            if (hitSelf) {
+                clearInterval(repeat);
+            }
+
+            else if (newX == appleX && newY == appleY) {
+                snakeX.splice(snakeX.length, 0 , newX % 10);
+                snakeY.splice(snakeY.length, 0 , newY % 8);
+
+                generateAppleLoc();
+            }
+            else {
+                snakeX.splice(0,1)
+                snakeX.splice(snakeX.length, 0 , newX % 10);
+
+                snakeY.splice(0,1)
+                snakeY.splice(snakeY.length, 0 , newY % 8);
+            }
 
             draw();
         }
 
+        generateAppleLoc();
         draw();
-        setInterval(updateSnake,500);
+        repeat = setInterval(update,500);
 
     </script>
   </body>
