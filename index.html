@@ -21,6 +21,8 @@
     <script>
         var canvas = document.getElementById("myCanvas");
         var ctx = canvas.getContext("2d");
+        var width = canvas.width;
+        var height = canvas.height;
 
         document.addEventListener("keydown", keyDownHandler, false);
 
@@ -29,7 +31,9 @@
         let upPressed = false;
         let downPressed = false;
 
-        delta = 50;
+        squareSize = 50;
+        numberOfXSquares = width / squareSize;
+        numberOfYSquares = height / squareSize;
         snakeX = [0,0,0];
         snakeY = [0,1,2];
         appleX = 0;
@@ -54,14 +58,14 @@
         }
 
         function draw() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.clearRect(0, 0, width, height);
             drawSnake();
             drawApple();
         }
 
         function drawSquare(x,y,colour) {
             ctx.beginPath();
-            ctx.rect(x*delta, y*delta, delta, delta);
+            ctx.rect(x*squareSize, y*squareSize, squareSize, squareSize);
             ctx.fillStyle = colour;
             ctx.fill();
             ctx.closePath();
@@ -81,8 +85,8 @@
             possibleX = []
             possibleY = []
 
-            for(i = 0; i < 10; i++) {
-                for(j = 0; j < 8; j++) {
+            for(i = 0; i < numberOfXSquares; i++) {
+                for(j = 0; j < numberOfYSquares; j++) {
                     isInSnake = false;
                     for(k = 0; k < snakeX.length; k++) {
                         if (snakeX.at(k) == i && snakeY.at(k) == j) {
@@ -124,13 +128,13 @@
 
             if (direction == 0) { 
                 newY--; 
-                if (newY == -1) { newY = 7; }
+                if (newY == -1) { newY = numberOfYSquares - 1; }
             }
             else if (direction == 1) { newX++; }
             else if (direction == 2) { newY++; }
             else if (direction == 3) { 
                 newX--; 
-                if (newX == -1) { newX = 9;}
+                if (newX == -1) { newX = numberOfXSquares - 1;}
             }
 
             hitSelf = false;
@@ -147,17 +151,17 @@
             }
 
             else if (newX == appleX && newY == appleY) {
-                snakeX.splice(snakeX.length, 0 , newX % 10);
-                snakeY.splice(snakeY.length, 0 , newY % 8);
+                snakeX.splice(snakeX.length, 0 , newX % numberOfXSquares);
+                snakeY.splice(snakeY.length, 0 , newY % numberOfYSquares);
 
                 generateAppleLoc();
             }
             else {
                 snakeX.splice(0,1)
-                snakeX.splice(snakeX.length, 0 , newX % 10);
+                snakeX.splice(snakeX.length, 0 , newX % numberOfXSquares);
 
                 snakeY.splice(0,1)
-                snakeY.splice(snakeY.length, 0 , newY % 8);
+                snakeY.splice(snakeY.length, 0 , newY % numberOfYSquares);
             }
 
             draw();
